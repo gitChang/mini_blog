@@ -31,3 +31,31 @@ Follow these steps to get your development environment running:
 git clone https://github.com/gitChang/mini_blog.git
 cd mini_blog
 ```
+
+### 2. Database Setup & Seeding
+
+This command creates your database, runs migrations, and populates the feed with sample data (past, current, and future posts):
+
+```bash
+rails db:prepare
+rails db:seed
+```
+
+### 3. Testing
+
+We use RSpec to verify application logic and ensure future posts remain hidden from the feed.
+
+```bash
+# Run the entire test suite
+bundle exec rspec
+```
+
+### 4. Running Locally
+
+To start the development server:
+
+```bash
+rails s -b 0.0.0.0
+```
+
+specify "-b 0.0.0.0" if you are using WSL.
