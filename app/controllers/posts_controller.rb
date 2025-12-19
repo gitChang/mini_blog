@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :init_post, only: [:show, :edit, :update, :destroy]
   def index
-    @posts = Post.published
+    @posts = Post.all.order(published_at: :desc)
   end
 
   def new
@@ -10,11 +10,14 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-
     if @post.save
-      redirect_to post_path(@post), notice: "Post was successfully created."
+      notice_message = if @post.published_at > Time.current
+                        "Post scheduled for #{@post.published_at.strftime('%B %d')}"
+                      else
+                        "Post was successfully published."
+                      end
+      redirect_to posts_path, notice: notice_message
     else
-      flash.now[:alert] = @post.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
     end
   end

@@ -16,11 +16,16 @@
             <%= @post.title %>
           </h1>
 
-          <div class="d-flex align-items-center text-muted border-bottom pb-4">
-            <span class="badge bg-danger me-3">PUBLISHED</span>
-            <span>
-              <%= @post.published_at.strftime("%B %d, %Y at %I:%M %p") %>
-            </span>
+          <div class="d-flex align-items-center mb-3">
+            <% if @post.published? %>
+              <span class="badge bg-success">
+                <i class="bi bi-check-circle"></i> Published <%= time_ago_in_words(@post.published_at) %> ago
+              </span>
+            <% else %>
+              <span class="badge bg-warning text-dark">
+                <i class="bi bi-clock"></i> Scheduled for <%= @post.published_at.strftime("%b %d, %I:%M %p") %>
+              </span>
+            <% end %>
           </div>
         </header>
 

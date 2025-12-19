@@ -2,34 +2,28 @@ require 'rails_helper'
 
 RSpec.describe "Posts", type: :request do
   describe "GET /posts" do
-    it "works! (now write some real specs)" do
-      get posts_path
-      expect(response).to have_http_status(200)
-    end
-  end
-
-  describe "GET /index" do
-    it "displays posts with a past date and hides posts with a future date" do
-      # 1. Create a post in the past
+    it "renders the correct status indicators and 12-hour time" do
       Post.create!(
-        title: "Past Post",
-        content: "I should be visible",
+        title: "Yesterday Post",
+        content: "Already live.",
         published_at: 1.day.ago
       )
 
-      # 2. Create a post in the future
       Post.create!(
-        title: "Future Post",
-        content: "I should be hidden",
+        title: "Tomorrow Post",
+        content: "Not live yet.",
         published_at: 1.day.from_now
       )
 
-      # 3. Visit the index page
       get posts_path
 
-      # 4. Assertions
-      expect(response.body).to include("Past Post")
-      expect(response.body).not_to include("Future Post")
+      expect(response).to have_http_status(200)
+
+      expect(response.body).to include("Yesterday Post")
+      expect(response.body).to include("Published")
+
+      expect(response.body).to include("Tomorrow Post")
+      expect(response.body).to include("Scheduled")
     end
   end
 end

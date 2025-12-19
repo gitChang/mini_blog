@@ -1,39 +1,22 @@
-puts "Cleaning database..."
+puts "Refreshing database..."
 Post.destroy_all
 
-puts "Creating posts..."
-
-# 1. PAST POSTS
 Post.create!(
-  title: "A Trip to the Past",
-  content: "This post was written yesterday. It should be visible to everyone.",
+  title: "Morning Coffee Thoughts",
+  content: "The indicator for this post should show 'Published' because the time has already passed.",
+  published_at: 4.hours.ago
+)
+
+Post.create!(
+  title: "Weekly Wrap-up",
+  content: "This post was released yesterday. It should clearly display the 'Published' status with a 12-hour timestamp.",
   published_at: 1.day.ago
 )
 
 Post.create!(
-  title: "The Very First Story",
-  content: "This is an old post from last week. It represents the history of this blog.",
-  published_at: 7.days.ago
-)
-
-# 2. CURRENT POST
-Post.create!(
-  title: "Live Right Now",
-  content: "This post was just published! It should appear at the very top of the feed.",
-  published_at: Time.current
-)
-
-# 3. FUTURE POSTS (Should NOT show in feed yet)
-Post.create!(
-  title: "Future Predictions 2026",
-  content: "This is a scheduled post. You shouldn't be able to see this on the index page yet!",
-  published_at: 1.month.from_now
-)
-
-Post.create!(
-  title: "Tomorrow's News",
-  content: "I am waiting for tomorrow to be revealed.",
+  title: "Coming Soon: New Features",
+  content: "Since this time is in the future, the indicator logic should switch to 'Scheduled' automatically.",
   published_at: 1.day.from_now
 )
 
-puts "Finished! Created #{Post.count} posts."
+puts "Seeds created! Total posts: #{Post.count}"

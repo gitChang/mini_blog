@@ -38,6 +38,7 @@ This command creates your database, runs migrations, and populates the feed with
 
 ```bash
 rails db:prepare
+rails db:seed
 ```
 
 ### 3. Testing

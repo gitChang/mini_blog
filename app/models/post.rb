@@ -2,7 +2,9 @@ class Post < ApplicationRecord
   validates :title, :content, :published_at, presence: true
   validate  :title_uniqueness, if: -> { title.present? }
 
-  scope :published, -> { where("published_at <= ?", Time.current).order(published_at: :desc) }
+  def published?
+    published_at <= Time.current
+  end
 
   private
 
