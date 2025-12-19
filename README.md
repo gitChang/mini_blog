@@ -28,7 +28,7 @@ Follow these steps to get your development environment running:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/gitChang/mini_blog.git
+git clone git@github.com:gitChang/mini_blog.git
 cd mini_blog
 ```
 
