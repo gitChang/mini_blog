@@ -16,8 +16,9 @@ class PostsController < ApplicationController
                       else
                         "Post was successfully published."
                       end
-      redirect_to posts_path, notice: notice_message
+      redirect_to post_path(@post), notice: notice_message
     else
+      flash.now[:alert] = @post.errors.full_messages.to_sentence
       render :new, status: :unprocessable_entity
     end
   end
